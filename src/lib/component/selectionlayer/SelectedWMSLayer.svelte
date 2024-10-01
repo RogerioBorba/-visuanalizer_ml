@@ -1,8 +1,9 @@
 <script>
 
-    import { selectedLayers } from '$lib/store/storeMap'
+    import { selectedLayers, map } from '$lib/store/storeMap';
+    import { removeWMSLayer } from '$lib/component/maplibre/maplibreWMS'
     import { onMount } from 'svelte';
-  
+    
     export let dataLayer;
     let hidden ='hidden';
     let linkLegenda = '';
@@ -17,6 +18,8 @@
         $selectedLayers = $selectedLayers.filter(t => t.oid !== dataLayer.oid);
         //dataLayer.layer.map.removeLayer(dataLayer.layer);
         //$removedLayers = [...$removedLayers, dataLayer];
+        
+        removeWMSLayer($map, dataLayer.name())
         
     }
     function getLegendGraphicURLByLink() {

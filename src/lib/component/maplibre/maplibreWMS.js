@@ -22,3 +22,12 @@ export async function addWMSLayer(map, url, layerName) {
       'paint': {}
     });
 }
+
+export async function removeWMSLayer(map, id) {
+    if (map.getLayer(id)) {
+        map.removeLayer(id);
+    }
+    if (map.getSource(id)) {
+        map.removeSource(id);
+    }
+}
