@@ -117,6 +117,10 @@ export class WMSLayer extends BaseLayer {
         this.styles_ = null;   
     }
     
+    toString() {
+        return this.name();  // Chama o método nome() para exibir o nome
+      }
+
     remove() {
         if (this.sourceLayer)
             this.sourceLayer.remove()

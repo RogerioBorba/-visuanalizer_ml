@@ -2,54 +2,41 @@
 
     import { selectedLayers, map } from '$lib/store/storeMap';
     import { removeWMSLayer } from '$lib/component/maplibre/maplibreWMS'
-    import { onMount } from 'svelte';
+    import { WMSLayer } from '$lib/component/wms/WMSLayer';
     
-    export let dataLayer;
+    /**
+     * @type {WMSLayer} dataLayer
+     */
+     export let dataLayer;
     let hidden ='hidden';
     let linkLegenda = '';
 
   
-    onMount( async () => {
-    })  
-
     function btnClearClicked() {
         if (!dataLayer)
             return 
         $selectedLayers = $selectedLayers.filter(t => t.oid !== dataLayer.oid);
-        //dataLayer.layer.map.removeLayer(dataLayer.layer);
-        //$removedLayers = [...$removedLayers, dataLayer];
-        
         removeWMSLayer($map, dataLayer.name())
-        
     }
+
     function getLegendGraphicURLByLink() {
-        
-        let url = dataLayer.dataLayerCapability.link.substring(0, dataLayer.wmsLayerCapability.link.indexOf('?') + 1)
+        let url = dataLayer.wmsLayerCapability.link.substring(0, dataLayer.wmsLayerCapability.link.indexOf('?') + 1)
         return `${url}SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=${dataLayer.name()}`
     }
+
     function btnLegendClicked() {
         let styles = dataLayer.styles();
         if (styles && styles.length > 0)
             linkLegenda = styles[0].legendGraphicURL;
         else {
-            if (dataLayer.wmsLayerCapability.link) {
-            
+            if (dataLayer.wmsLayerCapability.link) {    
                 linkLegenda = getLegendGraphicURLByLink()
                 console.log(linkLegenda)
             }
-                
         }
         hidden = (hidden == 'hidden')?'': 'hidden'        
     }
-    function errorCallback() {
-        alert(`O endereço da legenda não foi encontrado: ${linkLegenda}`)
-    }
     
-    $:{
-        if(dataLayer){
-            console.log(dataLayer.className)
-        }
-    }
         
 </script>
     <div class="flex mt-1 relative text-gray-700">
@@ -58,8 +45,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="cyan" viewBox="0 0 22 22" stroke="currentColor" stroke-width="1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>    
-            </button>  
-        
+            </button>      
         <button class="mb-4 focus:outline-none bg-grey-light hover:bg-grey text-grey-darkest font-bold py-1 px-1 rounded inline-flex items-center hover:bg-gray-200" on:click|stopPropagation={btnClearClicked} title="Remover camada">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />

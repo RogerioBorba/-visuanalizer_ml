@@ -9,5 +9,12 @@ export class BaseLayer {
         BaseLayer.inc++;
     }
 
+    name() {
+        throw new Error("The method 'name' must be implemented in subclasses.");
+    }
+    
+    toString() {
+        return this.name();  // Chama o método nome() para exibir o nome
+      }
 
 }
