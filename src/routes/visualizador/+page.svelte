@@ -4,7 +4,13 @@ import ExpansionPanel from "$lib/component/base/expansionpanel/ExpansionPanel.sv
 import MapLibre from "$lib/component/maplibre/Maplibre.svelte";
 import TabWMS from "$lib/component/wms/TabWMS.svelte";
 import BaseSelectedLayer from "$lib/component/selectionlayer/BaseSelectedLayer.svelte";
-
+import {server} from "$lib/store/storeServer"
+import { onMount } from "svelte";
+/** @type {import('./$types').PageData} data*/
+export let data;
+onMount( async () => {
+	server.set({protocol: data.protocol, serverName: data.serverName, port: data.port});
+})
 </script>
 <MapLibre></MapLibre>
 <Sidebar home="Home">

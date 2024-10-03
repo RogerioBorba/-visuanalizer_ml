@@ -1,4 +1,5 @@
 import {DOMParser} from 'xmldom'
+
 export function xml2json(xml) {
 	
 	// Create the return object
@@ -68,6 +69,9 @@ export function xml2json(xml) {
     }
   }*/
 
+  /**
+ * @param {string} textXml
+ */
   export function textXml2Json(textXml) {
 	let parser
 	try {

@@ -14,7 +14,7 @@ onMount( async () => {
      const aMap = new maplibregl.Map({
         container: idHtml,
         style: $styleOSM,
-        center: [-40, -20],
+        center: [-55, -15],
         zoom: 3
     });
     map.set(aMap);

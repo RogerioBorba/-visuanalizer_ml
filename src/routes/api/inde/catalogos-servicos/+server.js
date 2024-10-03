@@ -7,7 +7,8 @@ export async function GET(){
      * @type {{ descricao: string; sigla: string; url: string; wmsAvailable: boolean; wfsAvailable: boolean; wcsAvailable: boolean; wmsGetCapabilities: string; wfsGetCapabilities: string; wcsGetCapabilities: string; url_metadados: string; cswGetCapabilities: string; }[]}
      */
     let catalogos = []
-    data.forEach(cat => {
+    /** @type {{ descricao: any; sigla?: string; url?: string; wmsAvailable?: boolean; wfsAvailable?: boolean; wcsAvailable?: boolean; wmsGetCapabilities?: string; wfsGetCapabilities?: string; wcsGetCapabilities?: string; url_metadados?: string; cswGetCapabilities?: string; }} */ 
+    data.forEach((cat) => {
         if (cat.descricao.startsWith('IBGE -')) {
             catalogos_ibge.forEach(cat_ibge => {
                 catalogos.push(cat_ibge) 
@@ -17,11 +18,7 @@ export async function GET(){
         }
     })
 
-    
-
-    return new Response(JSON.stringify(catalogos), {status: 200});
-    
-
+    return new Response(JSON.stringify(catalogos), {status: 200});  
 }
 
 let catalogos_ibge = 

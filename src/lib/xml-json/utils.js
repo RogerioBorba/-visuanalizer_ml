@@ -1,3 +1,7 @@
+
+/**
+ * @param {{ [x: string]: any; }} node
+ */
 export function nodeValue(node) {
     if (!node)
         return null
