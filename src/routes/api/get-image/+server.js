@@ -3,7 +3,6 @@ import { error } from '@sveltejs/kit';
 /** @type {import('./$types').RequestHandler} */
 export async function GET({url}) {    
     try {
-        console.log("URL.search: " + typeof(url.search))
         if (url.search.length == 0) {
             const msg = 'O parâmetro url não consta na requisição'
             console.log(msg)
@@ -28,7 +27,7 @@ export async function GET({url}) {
             return new Response(imageBuffer, {
                 status: response.status,
                 headers: {
-                    'Content-Type': 'image/png',
+                    'Content-Type': contentType,
                 }
             });
         } else {
